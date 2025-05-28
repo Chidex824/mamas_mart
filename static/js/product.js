@@ -1,8 +1,9 @@
 // Product page functionality
-document.addEventListener('DOMContentLoaded', function() {
+function initializeProductPage() {
     // Initialize add product button handlers - combine both sidebar and table buttons
     document.querySelectorAll('.js-add-product, [data-bs-target="#addProductModal"]').forEach(button => {
         button.addEventListener('click', function(e) {
+            console.log('Add Product button clicked'); // Debug log
             e.preventDefault();
             e.stopPropagation();
             const addProductModal = new bootstrap.Modal(document.getElementById('addProductModal'));
@@ -10,6 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Initialize product page elements
+    // Initialize Bootstrap modals
+    document.querySelectorAll('.modal').forEach(modalEl => {
+        if (!bootstrap.Modal.getInstance(modalEl)) {
+            new bootstrap.Modal(modalEl);
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
     // Initialize product page elements
     initializeProductPage();
 
