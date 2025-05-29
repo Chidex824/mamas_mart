@@ -1,21 +1,23 @@
-// Product page functionality
-function initializeProductPage() {
-    // Initialize add product button handlers - combine both sidebar and table buttons
-    document.querySelectorAll('.js-add-product, [data-bs-target="#addProductModal"]').forEach(button => {
-        button.addEventListener('click', function(e) {
-            console.log('Add Product button clicked'); // Debug log
+window.initializeProductPage = function() {
+    // Use event delegation for add product button click handler
+    document.body.addEventListener('click', function(e) {
+        const target = e.target.closest('.js-add-product, [data-bs-target="#addProductModal"]');
+        if (target) {
             e.preventDefault();
             e.stopPropagation();
             const addProductModal = new bootstrap.Modal(document.getElementById('addProductModal'));
             addProductModal.show();
-        });
+        }
     });
 
-    // Initialize product page elements
     // Initialize Bootstrap modals
     document.querySelectorAll('.modal').forEach(modalEl => {
         if (!bootstrap.Modal.getInstance(modalEl)) {
-            new bootstrap.Modal(modalEl);
+            new bootstrap.Modal(modalEl, {
+                keyboard: true,
+                backdrop: true,
+                focus: true
+            });
         }
     });
 }
