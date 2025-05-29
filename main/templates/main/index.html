@@ -264,68 +264,6 @@
 <script src="{% static 'js/dashboard.js' %}"></script>
 <script src="{% static 'js/product.js' %}"></script>
 
-<!-- Add Product Modal -->
-<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <form id="addProductForm" enctype="multipart/form-data" method="post" novalidate>
-        {% csrf_token %}
-        <div class="modal-header">
-          <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="productName" class="form-label">Product Name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="productName" name="name" required>
-            <div class="invalid-feedback">Please enter the product name.</div>
-          </div>
-          <div class="mb-3">
-            <label for="productCategory" class="form-label">Category <span class="text-danger">*</span></label>
-            <select class="form-select" id="productCategory" name="category" required>
-              <option value="" selected disabled>Select category</option>
-              {% for category in categories %}
-              <option value="{{ category.id }}">{{ category.name }}</option>
-              {% endfor %}
-            </select>
-            <div class="invalid-feedback">Please select a category.</div>
-          </div>
-          <div class="mb-3">
-            <label for="productPrice" class="form-label">Price <span class="text-danger">*</span></label>
-            <input type="number" step="0.01" class="form-control" id="productPrice" name="price" required>
-            <div class="invalid-feedback">Please enter a valid price.</div>
-          </div>
-          <div class="mb-3">
-            <label for="productStock" class="form-label">Stock <span class="text-danger">*</span></label>
-            <input type="number" class="form-control" id="productStock" name="stock" required>
-            <div class="invalid-feedback">Please enter the stock quantity.</div>
-          </div>
-          <div class="mb-3">
-            <label for="productDescription" class="form-label">Description</label>
-            <textarea class="form-control" id="productDescription" name="description" rows="3"></textarea>
-          </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="productIsAvailable" name="is_available" checked>
-            <label class="form-check-label" for="productIsAvailable">Available</label>
-          </div>
-          <div class="mb-3">
-            <label for="productImage" class="form-label">Product Image</label>
-            <input class="form-control" type="file" id="productImage" name="image" accept="image/*">
-            <div class="image-preview mt-2 text-center text-muted">No image selected</div>
-          </div>
-          <div id="addProductError" class="alert alert-danger d-none"></div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">
-            Add Product
-            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-          </button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {

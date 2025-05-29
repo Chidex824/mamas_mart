@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',  # Make sure accounts is listed first
     'main.apps.MainConfig',
     'products.apps.ProductsConfig',
+    'inventory.apps.InventoryConfig',
 ]
 
 MIDDLEWARE = [
