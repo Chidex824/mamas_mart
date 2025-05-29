@@ -90,22 +90,6 @@
     {% csrf_token %}
     <!-- Include product page functionality -->
     <script src="{% static 'js/product.js' %}"></script>
-    <script>
-        // Initialize Bootstrap modals
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize add product modal
-            const addProductModal = new bootstrap.Modal(document.getElementById('addProductModal'));
-            
-            // Add click handler for all add product buttons
-            document.querySelectorAll('[data-bs-target="#addProductModal"]').forEach(button => {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    addProductModal.show();
-                });
-            });
-        });
-    </script>
 {% endblock %}
         document.querySelector('.card-body').innerHTML = '<div class="text-center p-5"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
 
