@@ -10,73 +10,129 @@
 <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
     <!-- Sidebar Start -->
-    <aside class="left-sidebar">
+    <aside class="left-sidebar" style="background-color: #f9f9f9; width: 250px;">
         <!-- Sidebar scroll-->
-        <div>
-            <div class="brand-logo d-flex align-items-center justify-content-between">
-                <a href="{% url 'main:index' %}" class="text-nowrap logo-img">
-                    <img src="{% static 'images/logos/dark-logo.svg' %}" width="160" alt="" />
-                </a>
-                <a class="sidebar-link sidebar-toggle nav-icon-hover" href="javascript:void(0)">
-                    <i class="ti ti-menu-2"></i>
-                </a>
+        <div style="height: 100vh; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <div class="brand-logo d-flex align-items-center justify-content-between p-3">
+                    <a href="{% url 'main:index' %}" class="text-nowrap logo-img">
+                        <img src="{% static 'images/logos/dark-logo.svg' %}" width="160" alt="Logo" />
+                    </a>
+                    <a class="sidebar-link sidebar-toggle nav-icon-hover" href="javascript:void(0)">
+                        <i class="ti ti-menu-2"></i>
+                    </a>
+                </div>
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav scroll-sidebar" data-simplebar="" style="padding-left: 10px;">
+                    <ul id="sidebarnav" style="list-style: none; padding-left: 0;">
+                        <li class="nav-small-cap" style="padding: 10px 15px; font-weight: 600; font-size: 0.85rem; color: #888;">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Main menu</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{% url 'main:index' %}" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-layout-dashboard"></i>
+                                </span>
+                                <span class="hide-menu">Dashboard</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" id="productsLink" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-box"></i>
+                                </span>
+                                <span class="hide-menu">Products</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-book"></i>
+                                </span>
+                                <span class="hide-menu">Sales</span>
+                                <div class="d-flex sidebar-submenu">
+                                </div>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{% url 'inventory:warehouse' %}" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-building"></i>
+                                </span>
+                                <span class="hide-menu">Warehouse</span>
+                                <div class="d-flex sidebar-submenu">
+                                </div>
+                            </a>
+                        </li>
+
+                        <!-- Additional menu items from the UI image -->
+                        <li class="nav-small-cap" style="padding: 10px 15px; font-weight: 600; font-size: 0.85rem; color: #888;">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Other menu</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{% url 'inventory:supplier' %}" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-truck"></i>
+                                </span>
+                                <span class="hide-menu">Supplier</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{% url 'inventory:invoice' %}" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-file-text"></i>
+                                </span>
+                                <span class="hide-menu">Invoice</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="#" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-users"></i>
+                                </span>
+                                <span class="hide-menu">User Management</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-small-cap" style="padding: 10px 15px; font-weight: 600; font-size: 0.85rem; color: #888;">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Help &amp; Settings</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="#" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-help-circle"></i>
+                                </span>
+                                <span class="hide-menu">Help &amp; Center</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="#" aria-expanded="false" style="display: flex; align-items: center; padding: 10px 15px; color: #333; font-weight: 600;">
+                                <span style="margin-right: 10px;">
+                                    <i class="ti ti-settings"></i>
+                                </span>
+                                <span class="hide-menu">Settings</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
             </div>
-            <!-- Sidebar navigation-->
-            <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-                <ul id="sidebarnav">
-                    <li class="nav-small-cap">
-                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <span class="hide-menu">Home</span>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{% url 'main:index' %}" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-layout-dashboard"></i>
-                            </span>
-                            <span class="hide-menu">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="nav-small-cap">
-                        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <span class="hide-menu">Inventory</span>
-                    </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="javascript:void(0)" id="productsLink" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-box"></i>
-                            </span>
-                            <span class="hide-menu">Products</span>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-truck"></i>
-                            </span>
-                            <span class="hide-menu">Purchases</span>
-                            <div class="d-flex sidebar-submenu">
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                            <span>
-                                <i class="ti ti-book"></i>
-                            </span>
-                            <span class="hide-menu">Sales</span>
-                            <div class="d-flex sidebar-submenu">
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-            <!-- End Sidebar navigation -->
+            <!-- End Sidebar scroll-->
+            <!-- Dark mode toggle -->
+            <div class="p-3 border-top">
+                <div class="form-check form-switch d-flex align-items-center">
+                    <input class="form-check-input me-2" type="checkbox" id="darkModeToggleSidebar">
+                    <label class="form-check-label" for="darkModeToggleSidebar">Dark mode</label>
+                </div>
+            </div>
         </div>
-        <!-- End Sidebar scroll-->
     </aside>
-    <!--  Sidebar End -->
+<!--  Sidebar End -->
 
     <!--  Main wrapper -->
     <div class="body-wrapper">
@@ -255,6 +311,10 @@
         <!-- Content wrapper end -->
     </div>
 </div>
+
+<!-- Add Product Modal -->
+{% include 'products/includes/add_product_modal.html' %}
+
 {% endblock %}
 
 {% block extra_js %}
@@ -263,7 +323,6 @@
 <!-- Dashboard Scripts -->
 <script src="{% static 'js/dashboard.js' %}"></script>
 <script src="{% static 'js/product.js' %}"></script>
-
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -294,12 +353,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             console.error('Error initializing dashboard charts:', error);
         }
-    }
-
-    // Initialize dashboard if we start on the dashboard view
-    if (dashboardContent && dashboardContent.style.display !== 'none') {
-        // Delay initialization to ensure DOM and scripts are ready
-        setTimeout(initializeDashboardView, 300);
     }
 
     // Function to load products content with optional filtering
@@ -343,8 +396,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(html => {
             productsContent.innerHTML = html;
             // Initialize any product-specific functionality
-            if (typeof initializeProductPage === 'function') {
-                initializeProductPage();
+            if (typeof window.initializeProductPage === 'function') {
+                window.initializeProductPage();
             }
         })
         .catch(error => {
@@ -380,5 +433,6 @@ document.addEventListener('DOMContentLoaded', function() {
             await loadProductsContent();
         });
     }
-});</script>
+});
+</script>
 {% endblock %}
