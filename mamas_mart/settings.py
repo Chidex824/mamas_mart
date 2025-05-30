@@ -60,7 +60,7 @@ ROOT_URLCONF = 'mamas_mart.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'inventory', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

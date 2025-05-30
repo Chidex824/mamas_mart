@@ -20,10 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from accounts.views import register
+from inventory import views as inventory_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('main/', include(('main.urls', 'main'), namespace='main')),
     path('products/', include(('products.urls', 'products'), namespace='products')),
+    path('inventory/', include(('inventory.urls', 'inventory'), namespace='inventory')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
