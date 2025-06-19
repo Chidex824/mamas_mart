@@ -28,4 +28,5 @@ urlpatterns = [
     path('main/', include(('main.urls', 'main'), namespace='main')),
     path('products/', include(('products.urls', 'products'), namespace='products')),
     path('inventory/', include(('inventory.urls', 'inventory'), namespace='inventory')),
+    path('sales/', include(('sales.urls', 'sales'), namespace='sales')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
