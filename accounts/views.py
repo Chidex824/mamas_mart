@@ -234,7 +234,6 @@ def user_delete(request, pk):
     
     return render(request, 'accounts/user_confirm_delete.html', {'user': user})
 
-# Removed permission_denied view to disable permission denied page
-# def permission_denied(request):
-#     """View to show permission denied page"""
-#     return render(request, 'accounts/permission_denied.html', status=403)
+@login_required
+def user_management(request):
+    return render(request, 'accounts/user_management.html')
