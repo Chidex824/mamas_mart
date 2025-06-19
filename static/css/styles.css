@@ -1,19 +1,19 @@
-@charset "UTF-8";@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap");
-
-/* Sidebar submenu styles */
-.sidebar-nav .first-level {
-	padding-left: 0;
-	list-style: none;
-	display: none;
-	transition: all 0.2s ease;
+.page-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
 }
-
-.sidebar-nav .first-level.show {
-	display: block;
+.left-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background-color: #f9f9f9;
+    overflow-y: auto;
 }
-
-.sidebar-nav .first-level .sidebar-item {
-	padding-left: 30px;
+.body-wrapper {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
 }
 
 .sidebar-nav .first-level .sidebar-link {
@@ -69,6 +69,25 @@
 .first-level.show {
 	max-height: 500px;
 }
+
+.page-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+}
+.left-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+    background-color: #f9f9f9;
+    overflow-y: auto;
+}
+.body-wrapper {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
 /*!
  * Bootstrap  v5.3.0-alpha1 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
