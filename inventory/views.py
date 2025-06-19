@@ -72,3 +72,6 @@ def supplier(request):
 def invoice(request):
     purchases = Purchase.objects.select_related('product', 'supplier').all()
     return render(request, 'inventory/invoice.html', {'purchases': purchases})
+
+def transfer_product(request):
+    return render(request, 'inventory/transfer_product.html')
