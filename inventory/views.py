@@ -75,3 +75,6 @@ def invoice(request):
 
 def transfer_product(request):
     return render(request, 'inventory/transfer_product.html')
+
+def stock(request):
+    return render(request, 'inventory/stock.html')
