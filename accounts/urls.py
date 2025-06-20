@@ -19,6 +19,9 @@ urlpatterns = [
     # User Management Main Page
     path('user_management/', views.user_management, name='user_management'),
 
+    # Settings Page
+    path('settings/', views.settings_view, name='settings'),
+
     # Password Reset URLs
     path('password_reset/', 
         auth_views.PasswordResetView.as_view(

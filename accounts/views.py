@@ -237,3 +237,47 @@ def user_delete(request, pk):
 @login_required
 def user_management(request):
     return render(request, 'accounts/user_management.html')
+
+from .forms import UserProfileForm, UserNotificationForm, UserPreferencesForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+
+@login_required
+def settings_view(request):
+    user = request.user
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, instance=user)
+        password_form = PasswordChangeForm(user, request.POST)
+        notification_form = UserNotificationForm(request.POST)
+        preferences_form = UserPreferencesForm(request.POST)
+
+        if (profile_form.is_valid() and password_form.is_valid() and
+            notification_form.is_valid() and preferences_form.is_valid()):
+            profile_form.save()
+            password_form.save()
+            update_session_auth_hash(request, password_form.user)  # Important!
+
+            # Here you would save notification and preferences data to user profile or related models
+            # For now, just print or pass as this is a placeholder
+            email_notifications = notification_form.cleaned_data['email_notifications']
+            sms_notifications = notification_form.cleaned_data['sms_notifications']
+            language = preferences_form.cleaned_data['language']
+            timezone = preferences_form.cleaned_data['timezone']
+
+            # TODO: Save these preferences to user profile or related model
+
+            messages.success(request, 'Your settings have been updated successfully.')
+            return redirect('accounts:settings')
+    else:
+        profile_form = UserProfileForm(instance=user)
+        password_form = PasswordChangeForm(user)
+        notification_form = UserNotificationForm()
+        preferences_form = UserPreferencesForm()
+
+    context = {
+        'profile_form': profile_form,
+        'password_form': password_form,
+        'notification_form': notification_form,
+        'preferences_form': preferences_form,
+    }
+    return render(request, 'accounts/settings.html', context)
