@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (spinner) spinner.classList.remove('d-none');
             
             const formData = new FormData(this);
-            
             fetch(addProductForm.action, {
                 method: 'POST',
                 body: formData,
