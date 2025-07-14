@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const formData = new FormData(this);
             
-            fetch(window.location.pathname, {
+            fetch(addProductForm.action, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -411,7 +411,7 @@ function initializeProductForms() {
             
             const formData = new FormData(this);
             
-            fetch(window.location.pathname, {
+            fetch(addProductForm.action, {
                 method: 'POST',
                 body: formData,
                 headers: {

@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.db.models import Sum, F, Q
 from .models import Product, Category
+from inventory.models import Inventory as InventoryItem
 from decimal import Decimal
 
 def staff_required(user):
@@ -89,34 +90,36 @@ def product_list(request):
     # Get all categories for the filter dropdown
     categories = Category.objects.all()
     
-    context = {
-        'products': products,
-        'categories': categories,
-        'search_query': search_query,
-    }
-
-    template = 'products/product_list.html'
-    
     # For AJAX requests, return only the table content
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         template = 'products/includes/product_table.html'
+    else:
+        # For regular requests, also fetch inventory items for the modal
+        used_names = Product.objects.values_list('name', flat=True)
+        inventory_items = InventoryItem.objects.exclude(item_name__in=used_names)
+        context = {
+            'products': products,
+            'categories': categories,
+            'search_query': search_query,
+            'inventory_items': inventory_items,
+        }
+        return render(request, 'products/product_list.html', context)
     
     return render(request, template, context)
 
 @login_required
 def add_product(request):
-    """Add a new product."""
+    """Add a new product from inventory only."""
     if request.method == 'POST':
         try:
-            # Get form data
-            name = request.POST.get('name')
-            category_id = request.POST.get('category')
+            inventory_id = request.POST.get('inventory_item')
+            inventory_item = InventoryItem.objects.get(id=inventory_id)
+            category_id = inventory_item.category.id
+            name = inventory_item.item_name
             price = request.POST.get('price')
             stock = request.POST.get('stock')
             description = request.POST.get('description')
             is_available = request.POST.get('is_available') == 'on'
-            
-            # Create new product
             product = Product.objects.create(
                 name=name,
                 category_id=category_id,
@@ -125,18 +128,18 @@ def add_product(request):
                 description=description,
                 is_available=is_available
             )
-            
-            # Handle image upload
             if request.FILES.get('image'):
                 product.image = request.FILES['image']
                 product.save()
-            
             return JsonResponse({'success': True})
-            
         except Exception as e:
             return JsonResponse({'success': False, 'error': str(e)})
-    
-    return JsonResponse({'success': False, 'error': 'Invalid request method'})
+    # For GET request, render the add product modal with inventory items and categories
+    # Only show inventory items not already used as products
+    used_names = Product.objects.values_list('name', flat=True)
+    inventory_items = InventoryItem.objects.exclude(item_name__in=used_names)
+    categories = Category.objects.all()
+    return render(request, 'products/includes/add_product_modal.html', {'categories': categories, 'inventory_items': inventory_items})
 
 @login_required
 def edit_product(request, product_id):
@@ -242,4 +245,14 @@ def product_table(request):
     
     # For direct access, return the full page
     return render(request, 'products/product_list.html', context)
+
+@login_required
+def category_list(request):
+    """Display and add product categories."""
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        if name:
+            Category.objects.get_or_create(name=name)
+    categories = Category.objects.all()
+    return render(request, 'products/category_list.html', {'categories': categories})
 

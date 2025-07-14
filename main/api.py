@@ -1,9 +1,11 @@
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count, Q
 from django.db.models.functions import ExtractWeek, ExtractMonth, TruncDate
 from django.utils import timezone
 from datetime import timedelta
 from .models import DailySalesReport
 from products.models import Product, Purchase, Sale
+from accounts.models import User
+from sales.models import Sale as SaleModel
 
 def get_dashboard_data():
     """Get all dashboard data in a single API call"""
@@ -64,7 +66,12 @@ def get_dashboard_data():
         ).aggregate(
             total_sales=Sum('total_sales'),
             total_transactions=Count('id')
-        )
+        ),
+        'new_customers': User.objects.filter(date_joined__gte=week_ago).count(),
+        'orders': SaleModel.objects.filter(date__gte=week_ago).count(),
+        'completed': SaleModel.objects.filter(date__gte=week_ago, status='completed').count(),
+        'cancelled': SaleModel.objects.filter(date__gte=week_ago, status='cancelled').count(),
+        'refund_requests': SaleModel.objects.filter(date__gte=week_ago, status='refund_requested').count(),
     }
 
     return {
@@ -73,3 +80,38 @@ def get_dashboard_data():
         'sales_expenses': sales_expenses,
         'current_stats': current_stats
     }
+
+def get_stock_report():
+    """API to get stock report data"""
+    products = Product.objects.all().values(
+        'id', 'name', 'product_id', 'price', 'category__name', 'stock', 'status'
+    )
+    stock_list = []
+    for p in products:
+        stock_list.append({
+            'id': p['id'],
+            'items': p['name'],
+            'product_id': p['product_id'],
+            'price': p['price'],
+            'category': p['category__name'],
+            'quantity': p['stock'],
+            'status': p['status'],
+        })
+    return stock_list
+
+def get_top_selling_products():
+    """API to get top selling products data"""
+    sales = Sale.objects.values(
+        'date', 'product__name', 'product__product_id', 'price', 'quantity', 'total_amount'
+    ).order_by('-date')[:10]
+    top_selling_list = []
+    for s in sales:
+        top_selling_list.append({
+            'date': s['date'].strftime('%d/%m/%Y') if s['date'] else '',
+            'items': s['product__name'],
+            'product_id': s['product__product_id'],
+            'price': s['price'],
+            'sales': s['quantity'],
+            'earnings': s['total_amount'],
+        })
+    return top_selling_list
